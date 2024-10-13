@@ -1,0 +1,14 @@
+p{
+    color: cadetblue;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 32px;
+    text-align: center;
+}
+li{
+    display: inline-block;
+    margin: 100px;
+}
+search box{
+    border: 10px black solid;
+    border-radius: 100% black solid;
+}
