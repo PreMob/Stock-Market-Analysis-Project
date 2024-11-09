@@ -3,15 +3,29 @@
     <title>Stock</title>
     <link rel="stylesheet" href="stock.css">
     <link rel="img" href="stock.jpg">
+    <!-- <script src="http://127.0.0.1:5000"></script> -->
+    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.2.min.js"></script>
 </head>
 <body>
     <img src="stock.jpg" alt="stock">
     <p>Welcome to Stock Analysis</p>
    <ul>
     <li>Home</li>
-    <li>Contact </li>
+    <li>Contect </li>
     <li>About Us</li>
     <li><input type="search" name="search" id="search box" placeholder="Search here"></li>
    </ul>
+   <div id="stock_plot"></div>
+
+    <script>
+        async function loadStockGraph(stock_name) {
+            const response = await fetch(`http://127.0.0.1:5000/get_stock_graph?stock_name=${stock_name}`);
+            const graphJson = await response.json();
+            Bokeh.embed.embed_item(graphJson, "stock_plot");
+        }
+
+        // Example usage
+        loadStockGraph('AAPL');
+    </script>
 </body>
 </html>
