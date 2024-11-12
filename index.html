@@ -1,31 +1,40 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Stock</title>
-    <link rel="stylesheet" href="stock.css">
-    <link rel="img" href="stock.jpg">
-    <!-- <script src="http://127.0.0.1:5000"></script> -->
-    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.2.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Market Today</title>
+    <link rel="stylesheet" href="vidushi.css">
 </head>
 <body>
-    <img src="stock.jpg" alt="stock">
-    <p>Welcome to Stock Analysis</p>
-   <ul>
-    <li>Home</li>
-    <li>Contect </li>
-    <li>About Us</li>
-    <li><input type="search" name="search" id="search box" placeholder="Search here"></li>
-   </ul>
-   <div id="stock_plot"></div>
+    <header>
+        <div class="container">
+            <!-- <h1 class="logo">Mint</h1> -->
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="https://www.business-standard.com/latest-news">Latest News</a></li>
+                    <li><a href="#">Markets</a></li>
+        
+                    <li><a href="#">Premium</a></li>
+                    <li><a href="#">Companies</a></li>
+                    <li><a href="#">Money</a></li>
+                </ul>
+                <div class="search-container">
+                    <input type="text" placeholder="Enter the stock name...." aria-label="Search">
+                    <button type="submit">Search</button>
+                </div>
+            </nav>
+        </div>
+    </header>
 
-    <script>
-        async function loadStockGraph(stock_name) {
-            const response = await fetch(`http://127.0.0.1:5000/get_stock_graph?stock_name=${stock_name}`);
-            const graphJson = await response.json();
-            Bokeh.embed.embed_item(graphJson, "stock_plot");
-        }
-
-        // Example usage
-        loadStockGraph('AAPL');
-    </script>
+    <main>
+        <section class="stock-content">
+            <h2>Stock market today: Trade setup for Nifty 50 to Q2 results today; five stocks to buy or sell on Tuesday — Nov 12</h2>
+            <p><strong>Stock Market Today:</strong> The bulls have seen inability to sustain higher levels though sharp downside momentum was also absent on Monday. Nifty 50 Index is moving in a broader high low range of 24300/24600-23800 levels, said analysts.</p>
+        </section>
+        here you can see the stock price <a href="http://127.0.0.1:53011/">Apple</a>
+    </main>
 </body>
 </html>
+       
