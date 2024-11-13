@@ -1,8 +1,10 @@
-# app.py
+# FlaskApi2.py
 from flask import Flask, request, jsonify
-from Smain import generate_stock_graph
+from Smain import generate_graph  # Import the new function
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/get_stock_graph', methods=['GET'])
 def get_stock_graph():
@@ -12,11 +14,14 @@ def get_stock_graph():
         return jsonify({"error": "Stock name is required"}), 400
 
     try:
-        # Generate the graph JSON
-        graph_json = generate_stock_graph(stock_name)
+        graph_json = generate_graph(stock_name)  # Use the new function
         return jsonify(graph_json)
+    except ValueError as ve:
+        print(f"ValueError: {ve}")
+        return jsonify({"error": str(ve)}), 404
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-if __name__ == '__main__':
+        print(f"Internal server error: {e}")
+        return jsonify({"error": "An internal error occurred. Please try again later."}), 500
+    
+if __name__ == "__main__":
     app.run(debug=True)
