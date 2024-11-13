@@ -76,10 +76,18 @@ main {
     padding: 0 1rem;
 }
 
-.stock-content h2 {
-    font-size: 1.8rem;
-    color: #333;
-    margin-bottom: 1rem;
+.stock-content img {
+    float: left;
+    padding: 20px;
+    height: 200px;
+    width: 300px;
+    margin-left: -200px;
+    /* display: flex;
+    text-align: left;
+    align-items: flex-start; */
+}
+p{
+    text-align: justify;
 }
 
 .stock-content p {
