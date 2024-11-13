@@ -1,31 +1,36 @@
-# stock_graph.py
+# plotly_graph.py
 import yfinance as yf
-from bokeh.plotting import figure
-from bokeh.embed import json_item
-from bokeh.models import HoverTool
-import datetime
+import plotly.graph_objs as go
+import plotly.io as pio
 
-def generate_stock_graph(stock_name):
-    # Fetch stock data
-    stock_data = yf.Ticker(stock_name)
-    hist = stock_data.history(period="1mo")  # Last month’s data
+def generate_graph(stock_name):
+    try:
+        # Fetch stock data
+        stock_data = yf.Ticker(stock_name)
+        hist = stock_data.history(period="1mo")
 
-    # Prepare data for Bokeh
-    dates = hist.index
-    close_prices = hist['Close']
+        if hist.empty:
+            raise ValueError("No data found for the specified stock.")
 
-    # Create a Bokeh figure
-    p = figure(title=f"{stock_name} Stock Price", x_axis_label="Date", y_axis_label="Price (USD)",
-               x_axis_type="datetime", plot_width=800, plot_height=400)
+        # Prepare data for Plotly
+        dates = hist.index
+        close_prices = hist['Close']
 
-    # Line plot with circle markers for close prices
-    p.line(dates, close_prices, legend_label="Close Price", line_width=2)
-    p.circle(dates, close_prices, size=6, color="red", alpha=0.6)
+        # Create a Plotly figure
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(x=dates, y=close_prices, mode='lines+markers', name='Close Price',
+                                  hovertemplate='Date: %{x}<br>Price: %{y:.2f}<extra></extra>'))
 
-    # Add hover tool
-    hover = HoverTool(tooltips=[("Date", "@x{%F}"), ("Price", "@y{$0,0.00}")],
-                      formatters={'@x': 'datetime'}, mode='vline')
-    p.add_tools(hover)
+        # Update layout
+        fig.update_layout(title=f"{stock_name} Stock Price",
+                          xaxis_title="Date",
+                          yaxis_title="Price (USD)",
+                          hovermode='closest')
 
-    # Convert to JSON format for embedding
-    return json_item(p, "stock_plot")
+        # Convert Plotly figure to JSON
+        response = pio.to_json(fig)
+        return response
+
+    except Exception as e:
+        print(f"Error generating graph: {e}")
+        raise
