@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Plotly Plot</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>Interactive Stock Price Plot</h1>
+    <div>
+        <input type="text" id="stockInput" placeholder="Enter stock symbol (e.g., AAPL)" />
+        <button id="fetchButton">Fetch Stock Graph</button>
+    </div>
+    <div id="plot"></div>
+
+    <script>
+        document.getElementById('fetchButton').addEventListener('click', function() {
+            const stockName = document.getElementById('stockInput').value;
+            if (!stockName) {
+                alert("Please enter a stock symbol.");
+                return;
+            }
+
+            // Fetch the plot JSON from the Flask API
+            fetch(`http://127.0.0.1:5000/get_stock_graph?stock_name=${stockName}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok: " + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(plotJson => {
+                    // Parse the JSON string back into an object
+                    const plotData = JSON.parse(plotJson);
+                    // Check if plotData has data and layout
+                    if (plotData.data && plotData.layout) {
+                        Plotly.newPlot('plot', plotData.data, plotData.layout);
+                    } else {
+                        console.error("Invalid plot JSON structure:", plotData);
+                    }
+                })
+                .catch(error => console.error("Error loading the plot:", error));
+        });
+    </script>
+</body>
+</html>
