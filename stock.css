@@ -35,6 +35,7 @@ nav ul {
     display: flex;
     gap: 1rem;
     text-align: right;
+    cursor: pointer;
 }
 .search-container {
     display: inline-block;
@@ -75,6 +76,11 @@ main {
     margin: 2rem auto;
     padding: 0 1rem;
 }
+marquee{
+    font-size: 24px;
+    font-family: 'Times New Roman', Times, serif;
+    color: red;
+}
 
 .stock-content img {
     float: left;
@@ -86,11 +92,23 @@ main {
     text-align: left;
     align-items: flex-start; */
 }
-p{
+.para{
     text-align: justify;
+    color: red
+    font-size  50px;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .stock-content p {
     font-size: 1rem;
     color: #555;
 }
+#fetchButton{
+    cursor: pointer;
+}
+#plot{
+    margin-left: -200px;
+    height: 400px;
+    width: 1000px;
+}
+
