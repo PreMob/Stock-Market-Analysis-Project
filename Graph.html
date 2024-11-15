@@ -3,26 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Plotly Plot</title>
+    <title>Stock World</title>
+    <link rel="stylesheet" href="stock.css">
+    <script src="sahil.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body>
-    <h1>Interactive Stock Price Plot</h1>
-    <div>
-        <input type="text" id="stockInput" placeholder="Enter stock symbol (e.g., AAPL)" />
-        <button id="fetchButton">Fetch Stock Graph</button>
-    </div>
-    <div id="plot"></div>
+    <header>
+        <div class="container">
+            <nav>
+                <ul>
+                    <li><a href="sahil.html">Home</a></li>
+                    <li><a href="https://www.business-standard.com/latest-news">Latest News</a></li>
+                    <li><a href="#">Markets</a></li>
+                    <li><a href="#">Premium</a></li>
+                    <li><a href="#">Companies</a></li>
+                    <li><a href="#">Money</a></li>
+                    <li><a href="stock_names.pdf" target="_blank">Stock Names</a></li>
+                </ul>
+                <div>
+                    <input type="text" id="stockInput" placeholder="Enter stock symbol (e.g., AAPL)" target="blank"/>
+                    <button id="fetchButton">Search</button>
+                     
+                </div>
+            </nav>
+        </div>
+    </header>
 
+    <main>
+        <div id="plot"></div>
+    </main>
     <script>
-        document.getElementById('fetchButton').addEventListener('click', function() {
-            const stockName = document.getElementById('stockInput').value;
-            if (!stockName) {
-                alert("Please enter a stock symbol.");
-                return;
-            }
+        function getQueryParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
 
-            // Fetch the plot JSON from the Flask API
+        function fetchStockGraph(stockName) {
             fetch(`http://127.0.0.1:5000/get_stock_graph?stock_name=${stockName}`)
                 .then(response => {
                     if (!response.ok) {
@@ -31,9 +48,7 @@
                     return response.json();
                 })
                 .then(plotJson => {
-                    // Parse the JSON string back into an object
                     const plotData = JSON.parse(plotJson);
-                    // Check if plotData has data and layout
                     if (plotData.data && plotData.layout) {
                         Plotly.newPlot('plot', plotData.data, plotData.layout);
                     } else {
@@ -41,6 +56,26 @@
                     }
                 })
                 .catch(error => console.error("Error loading the plot:", error));
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const stockName = getQueryParameter('stock_name');
+            if (stockName) {
+                fetchStockGraph(stockName);
+            } else {
+                alert("No stock name provided.");
+            }
+
+            // Add event listener to the search button
+            document.getElementById('fetchButton').addEventListener('click', function() {
+                const newStockName = document.getElementById('stockInput').value;
+                if (!newStockName) {
+                    alert("Please enter a stock symbol.");
+                    return;
+                }
+                // Fetch new stock graph
+                fetchStockGraph(newStockName);
+            });
         });
     </script>
 </body>
