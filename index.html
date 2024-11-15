@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stock Market Today</title>
-    <link rel="stylesheet" href="vidushi.css">
+    <title>Stock World</title>
+    <link rel="stylesheet" href="stock.css">
+    <script src="sahil.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body>
     <header>
@@ -15,24 +17,27 @@
                     <li><a href="sahil.html">Home</a></li>
                     <li><a href="https://www.business-standard.com/latest-news">Latest News</a></li>
                     <li><a href="#">Markets</a></li>
-        
                     <li><a href="#">Premium</a></li>
                     <li><a href="#">Companies</a></li>
                     <li><a href="#">Money</a></li>
+                    <li><a href="stock_names.pdf" target="_blank">Stock Names</a></li>
                 </ul>
-                <div class="search-container">
-                    <input type="text" placeholder="Enter the stock name...." aria-label="Search">
-                    <button type="submit">Search</button>
+                <div>
+                    <input type="text" id="stockInput" placeholder="Enter stock symbol (e.g., AAPL)" target="blank"/>
+                    <button id="fetchButton">Search</button>
+                     
                 </div>
+    
             </nav>
         </div>
     </header>
 
     <main>
+        
         <section class="stock-content">
             <marquee behavior="" direction="left">Welcome to The Stock World</marquee>
             <img src="stock.jpg" alt="stock">
-            <p>Investing in the stock market can be one of the best ways to build wealth over time.
+            <p class="Para">Investing in the stock market can be one of the best ways to build wealth over time.
                  It allows you to diversify your portfolio, take advantage of economic growth, and benefit from compounding returns."
                 "Stock market investments offer flexibility, liquidity, and the potential for significant gains over the long term. However,
                  successful investing requires a good understanding of market trends and a disciplined approach.""The stock market can seem complex at first, but it starts
@@ -41,7 +46,22 @@
                   Explore our beginner's guide to learn more!"</p>
             
         </section>
-        
+        <!-- <div id="plot">
+            <p class="para">This is the Apple Graph </p>
+        </div> -->
     </main>
+    <script>
+        document.getElementById('fetchButton').addEventListener('click', function() {
+            const stockName = document.getElementById('stockInput').value;
+            if (!stockName) {
+                alert("Please enter a stock symbol.");
+                return;
+            }
+        
+            // Redirect to new.html with the stock name as a query parameter
+            window.location.href = `new.html?stock_name=${encodeURIComponent(stockName)}`;
+        });
+        </script> 
+   
 </body>
 </html>
