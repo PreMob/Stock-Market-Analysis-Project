@@ -23,13 +23,6 @@ header {
     margin: 0 auto;
     padding: 0 1rem;
 }
-
-.logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #ff6f00;
-}
-
 nav ul {
     list-style: none;
     display: flex;
@@ -55,10 +48,6 @@ nav ul {
     color: white;
     border-radius: 4px;
     cursor: pointer;
-}
-
-.search-container button:hover {
-    background-color: #0056b3;
 }
 
 nav a {
@@ -88,21 +77,8 @@ marquee{
     height: 200px;
     width: 300px;
     margin-left: -200px;
-    /* display: flex;
-    text-align: left;
-    align-items: flex-start; */
-}
-.para{
-    text-align: justify;
-    color: red
-    font-size  50px;
-    font-family: 'Times New Roman', Times, serif;
 }
 
-.stock-content p {
-    font-size: 1rem;
-    color: #555;
-}
 #fetchButton{
     cursor: pointer;
 }
@@ -110,5 +86,28 @@ marquee{
     margin-left: -200px;
     height: 400px;
     width: 1000px;
+}
+#vid{
+    float: right;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    align-items: flex-end;
+}
+
+#logo{
+    width: 300px;
+    height: 100px;
+    border: #333 solid 1px;
+    border-radius: 500px;
+}
+Para2{
+    margin-right: +200px;
+}
+.Para, .Para2{
+    font-size: 20px;
+    text-align: justify;
+    margin-left: -200px;
 }
 
