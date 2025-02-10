@@ -1,4 +1,3 @@
-# plotly_graph.py
 import yfinance as yf
 import plotly.graph_objs as go
 import plotly.io as pio
@@ -7,7 +6,7 @@ def generate_graph(stock_name):
     try:
         # Fetch stock data
         stock_data = yf.Ticker(stock_name)
-        hist = stock_data.history(period="1mo")
+        hist = stock_data.history(period="3mo")
 
         if hist.empty:
             raise ValueError("No data found for the specified stock.")
@@ -18,7 +17,7 @@ def generate_graph(stock_name):
 
         # Create a Plotly figure
         fig = go.Figure()
-        fig.add_trace(go.Scatter(x=dates, y=close_prices, mode='lines+markers', name='Close Price',
+        fig.add_trace(go.Scatter(x=dates, y=close_prices, mode='lines+markers', name='Close Price',line=dict(color="#00b300"),
                                   hovertemplate='Date: %{x}<br>Price: %{y:.2f}<extra></extra>'))
 
         # Update layout
