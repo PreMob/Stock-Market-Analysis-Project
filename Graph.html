@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,16 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stock World</title>
     <link rel="stylesheet" href="stock.css">
-    <script src="sahil.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body>
     <header>
         <div class="container">
-            <img src="logo.jpeg" alt="logo" id="logo">
+            <img src="logo.png" alt="logo" id="logo">
             <nav>
                 <ul>
-                    <li><a href="sahil.html">Home</a></li>
+                    <li><a href="index.html">Home</a></li>
                     <li><a href="https://www.business-standard.com/latest-news">Latest News</a></li>
                     <li><a href="#">Markets</a></li>
                     <li><a href="#">Premium</a></li>
@@ -26,7 +24,6 @@
                 <div>
                     <input type="text" id="stockInput" placeholder="Enter stock symbol (e.g., AAPL)" target="blank"/>
                     <button id="fetchButton">Search</button>
-                     
                 </div>
             </nav>
         </div>
@@ -34,13 +31,16 @@
 
     <main>
         <div id="plot"></div>
+        <p id="stockDescription"></p>
     </main>
     <script>
+        // Function to get query parameters from URL
         function getQueryParameter(name) {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(name);
         }
 
+        // Function to fetch and display stock graph
         function fetchStockGraph(stockName) {
             fetch(`http://127.0.0.1:5000/get_stock_graph?stock_name=${stockName}`)
                 .then(response => {
@@ -52,7 +52,11 @@
                 .then(plotJson => {
                     const plotData = JSON.parse(plotJson);
                     if (plotData.data && plotData.layout) {
+                        // Render the stock graph using Plotly
                         Plotly.newPlot('plot', plotData.data, plotData.layout);
+                        
+                        // Update the stock description paragraph
+                        document.getElementById("stockDescription").innerText = `The stock price graph of ${stockName} displays fluctuations over time, reflecting market trends, investor sentiment, and external economic factors. Periods of upward movement indicate bullish trends driven by positive earnings reports, strong market demand, or favorable news, while downward trends suggest bearish sentiment due to economic downturns, company setbacks, or market corrections. The stock may also exhibit periods of consolidation, where the price moves sideways as investors await new catalysts. Volume spikes often accompany significant price changes, signaling increased trading activity. Overall, the graph provides insights into ${stockName}’s historical performance and potential future movements based on technical patterns and market conditions.`;
                     } else {
                         console.error("Invalid plot JSON structure:", plotData);
                     }
@@ -61,6 +65,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
+            // Get stock name from URL parameter if available
             const stockName = getQueryParameter('stock_name');
             if (stockName) {
                 fetchStockGraph(stockName);
@@ -68,14 +73,14 @@
                 alert("No stock name provided.");
             }
 
-            // Add event listener to the search button
+            // Add event listener to search button for fetching new stock graph
             document.getElementById('fetchButton').addEventListener('click', function() {
                 const newStockName = document.getElementById('stockInput').value;
                 if (!newStockName) {
                     alert("Please enter a stock symbol.");
                     return;
                 }
-                // Fetch new stock graph
+                // Fetch and display the new stock graph
                 fetchStockGraph(newStockName);
             });
         });

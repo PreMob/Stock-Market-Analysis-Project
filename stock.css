@@ -61,7 +61,7 @@ nav a:hover {
 }
 
 main {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 2rem auto;
     padding: 0 1rem;
 }
@@ -84,8 +84,11 @@ marquee{
 }
 #plot{
     margin-left: -200px;
-    height: 400px;
-    width: 1000px;
+    height: 500px;
+    width: 1500px;
+}
+#stockDescription{
+    margin-left: -200px;
 }
 #vid{
     float: right;
@@ -96,11 +99,13 @@ marquee{
     align-items: flex-end;
 }
 
-#logo{
-    width: 300px;
-    height: 100px;
-    border: #333 solid 1px;
-    border-radius: 500px;
+#logo {
+    width: 150px; 
+    height: auto; 
+    display: block;
+    margin: 10px auto; 
+    border: 2px solid #ccc; 
+    border-radius: 50%; 
 }
 Para2{
     margin-right: +200px;
