@@ -4,7 +4,7 @@ This repo contains all the details about our project on Stock Market Analysis we
 A simple web-based stock market analysis project to apply basic web development and Python skills. It fetches and visualizes stock price data interactively.
 
 ### **📌 Overview**
-This project allows users to enter a stock symbol and view an interactive graph displaying the stock's price movements over the last three months. It also provides a brief description of stock trends.  
+This project allows users to enter a stock symbol or name and view an interactive graph displaying the stock's price movements over the last three months. It also provides a brief description of stock trends.  
 
 ### **🛠️ Features**
 - **Homepage (index.html):** A simple UI where users can enter a stock symbol.  
